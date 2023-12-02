@@ -6,10 +6,8 @@ import java.nio.file.Path;
 public class Part2 {
 
 	public static void main(String[] args) throws Exception {
-		String content = Files.readString(Path.of("./src/Day02/input.txt"));
-		content = content.replace("\r", "");
-		content = content.replace("\n", "@");
-		String[] linesArray = content.split("@");
+		String content = Files.readString(Path.of("./input.txt"));
+		String[] linesArray = content.split("\n");
 		long total = 0l;
 		for (int i = 0; i < linesArray.length; i++) {
 			total += powerOfGame(linesArray[i]);

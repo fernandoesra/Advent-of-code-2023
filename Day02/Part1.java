@@ -8,10 +8,8 @@ public class Part1 {
 	public static int[] cubesOnPossibleGame = { 12, 13, 14 };		// red, green, blue
 
 	public static void main(String[] args) throws Exception {
-		String content = Files.readString(Path.of("./src/Day02/input.txt"));
-		content = content.replace("\r", "");
-		content = content.replace("\n", "@");
-		String[] linesArray = content.split("@");
+		String content = Files.readString(Path.of("./input.txt"));
+		String[] linesArray = content.split("\n");
 		int total = 0;
 		for (int i = 0; i < linesArray.length; i++) {
 			if (isPossible(linesArray[i])) {
