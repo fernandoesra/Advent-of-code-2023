@@ -22,9 +22,46 @@ public class Part2 {
 
 	}
 
-	public static int getPartNumber(char[][] schematicMap, int mapY, int mapX) {
-		String actualNumber = readBeginning(schematicMap, mapY, mapX) + readEnd(schematicMap, mapY, mapX);
-		return Integer.parseInt(actualNumber);
+	public static String[] readFile(String path, String splitChara) {
+		String[] linesArray = null;
+		try {
+			String content = Files.readString(Path.of(path));
+			content = content.replace("\r", "");
+			linesArray = content.split(splitChara);
+		} catch (Exception e) {
+		}
+		return linesArray;
+	}
+
+	public static char[][] createSchematic(String[] lines) {
+		int height = lines.length;
+		int width = lines[0].length();
+		char[][] schematicMap = new char[height][width];
+		for (int i = 0; i < lines.length; i++) {
+			String actualLine = lines[i];
+			for (int j = 0; j < actualLine.length(); j++) {
+				schematicMap[i][j] = actualLine.charAt(j);
+			}
+		}
+		return schematicMap;
+	}
+
+	public static boolean inBounds(char[][] schematicMap, int mapY, int mapX) {
+		boolean inBounds = true;
+		int realHeight = schematicMap.length;
+		int realWidth = schematicMap[0].length;
+		if ((mapY < 0 || mapY >= realHeight) || (mapX < 0 || mapX >= realWidth))
+			inBounds = false;
+		return inBounds;
+	}
+
+	public static boolean isGear(char[][] schematicMap, int mapY, int mapX) {
+		boolean isGear = false;
+		if (inBounds(schematicMap, mapY, mapX)) {
+			if (schematicMap[mapY][mapX] == '*')
+				isGear = true;
+		}
+		return isGear;
 	}
 
 	public static long gearRatio(char[][] schematicMap, int height, int width) {
@@ -59,26 +96,9 @@ public class Part2 {
 		return partNumbers;
 	}
 
-	public static boolean isGear(char[][] schematicMap, int mapY, int mapX) {
-		boolean isGear = false;
-		if (inBounds(schematicMap, mapY, mapX)) {
-			if (schematicMap[mapY][mapX] == '*')
-				isGear = true;
-		}
-		return isGear;
-	}
-
-	public static String readEnd(char[][] schematicMap, int mapY, int mapX) {
-		String end = "";
-		while (Character.isDigit(schematicMap[mapY][mapX])) {
-			end += schematicMap[mapY][mapX];
-			if (inBounds(schematicMap, mapY, mapX + 1))
-				mapX++;
-			else {
-				break;
-			}
-		}
-		return end;
+	public static int getPartNumber(char[][] schematicMap, int mapY, int mapX) {
+		String actualNumber = readBeginning(schematicMap, mapY, mapX) + readEnd(schematicMap, mapY, mapX);
+		return Integer.parseInt(actualNumber);
 	}
 
 	public static String readBeginning(char[][] schematicMap, int mapY, int mapX) {
@@ -98,37 +118,17 @@ public class Part2 {
 		return reverse;
 	}
 
-	public static boolean inBounds(char[][] schematicMap, int mapY, int mapX) {
-		boolean inBounds = true;
-		int realHeight = schematicMap.length;
-		int realWidth = schematicMap[0].length;
-		if ((mapY < 0 || mapY >= realHeight) || (mapX < 0 || mapX >= realWidth))
-			inBounds = false;
-		return inBounds;
-	}
-
-	public static String[] readFile(String path, String splitChara) {
-		String[] linesArray = null;
-		try {
-			String content = Files.readString(Path.of(path));
-			content = content.replace("\r", "");
-			linesArray = content.split(splitChara);
-		} catch (Exception e) {
-		}
-		return linesArray;
-	}
-
-	public static char[][] createSchematic(String[] lines) {
-		int height = lines.length;
-		int width = lines[0].length();
-		char[][] schematicMap = new char[height][width];
-		for (int i = 0; i < lines.length; i++) {
-			String actualLine = lines[i];
-			for (int j = 0; j < actualLine.length(); j++) {
-				schematicMap[i][j] = actualLine.charAt(j);
+	public static String readEnd(char[][] schematicMap, int mapY, int mapX) {
+		String end = "";
+		while (Character.isDigit(schematicMap[mapY][mapX])) {
+			end += schematicMap[mapY][mapX];
+			if (inBounds(schematicMap, mapY, mapX + 1))
+				mapX++;
+			else {
+				break;
 			}
 		}
-		return schematicMap;
+		return end;
 	}
 
 }
