@@ -1,5 +1,7 @@
 package Utils;
 
+import java.util.concurrent.TimeUnit;
+
 public class ExecutedTime {
 
 	long time;
@@ -24,8 +26,17 @@ public class ExecutedTime {
 		this.time = time;
 	}
 
-	public long watchExecuted() {
-		return System.currentTimeMillis() - time;
+	public String watchExecuted() {
+		long total = System.currentTimeMillis() - time;
+		long h = TimeUnit.MILLISECONDS.toHours(total);
+		long m = TimeUnit.MILLISECONDS.toMinutes(total) % 60;
+		long s = TimeUnit.MILLISECONDS.toSeconds(total) % 60;
+		long ms = total % 1000;
+		return "Executed time: " + h + ":" + m + ":" + s + ":" + ms;
+	}
+	
+	public String toString() {
+		return this.watchExecuted();
 	}
 
 }
