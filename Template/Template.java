@@ -11,8 +11,8 @@ public class Template {
 
 	public static void main(String[] args) {
 		long total = 0l;
-		String[] originalArray = readFileToArray("./src/Day00/input.txt", "\n");
-		String originalString = readFileToString("./src/Day00/input.txt", "\n");
+		String[] originalArray = readFileToArray("./src/Day00/test.txt", "\n");
+		String originalString = readFileToString("./src/Day00/test.txt", "\n");
 		
 		// TODO
 
