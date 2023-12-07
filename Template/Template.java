@@ -7,16 +7,20 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import Utils.ExecutedTime;
+
 public class Template {
 
 	public static void main(String[] args) {
+		ExecutedTime et = new ExecutedTime();
+
 		long total = 0l;
 		String[] originalArray = readFileToArray("./src/Day00/test.txt", "\n");
 		String originalString = readFileToString("./src/Day00/test.txt", "\n");
-		
+
 		// TODO
 
-		System.out.println(total);
+		System.out.println("Answer:\n" + total + "\n" + et);
 	}
 
 	public static String readFileToString(String path, String splitChara) {
